@@ -1,6 +1,7 @@
 import spacy
 from spacy_readability import Readability
 from string import punctuation
+import syllables
 
 '''
 def process(text):
@@ -15,6 +16,7 @@ class NLP():
         self.doc = self.nlp(text)
         self.readability = self.readability_indexes()
         self.word_tokens = self.tokenize_words(self.doc)
+        self.polysyllables = self.get_polysyllables(self.word_tokens[1])
     def readability_indexes(self):
         self.readability_scores = {}
         self.readability_scores['ari'] = self.doc._.automated_readability_index
@@ -29,16 +31,14 @@ class NLP():
         no_punct_word_tokens = []
         for w in spacy_word_tokens:
             for p in punctuation:
-                if p in w:
-                    if w == p:
-                        pass
-                    elif p in w:
-                        w.replace(p, "")
-                        no_punct_word_tokens.append(w)
-                    else:
-                        pass
-                else:
-                    no_punct_word_tokens.append(w)
+                w = w.replace(p, "").replace("\n", "")
+            no_punct_word_tokens.append(w.lower())
+    def get_polysyllables(self, some_list):
+        polysyllables = []
+        for w in some_list: 
+            if syllables.estimate(w) > 3: 
+                polysyllables.append(w)
+
                     
                 
 
