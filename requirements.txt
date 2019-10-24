@@ -8,7 +8,7 @@ cymem==2.0.2
 decorator==4.4.0
 docx2txt==0.8
 EbookLib==0.17.1
-en-core-web-sm==2.2.0
+#en-core-web-sm==2.2.0
 extract-msg==0.23.1
 filetype==1.0.5
 idna==2.8
@@ -26,7 +26,7 @@ pdfminer.six==20181108
 pexpect==4.7.0
 pickleshare==0.7.5
 Pillow==6.2.0
-pkg-resources==0.0.0
+#pkg-resources==0.0.0
 plac==0.9.6
 preshed==3.0.2
 prompt-toolkit==2.0.10
