@@ -33,6 +33,7 @@ class NLP():
             for p in punctuation:
                 w = w.replace(p, "").replace("\n", "")
             no_punct_word_tokens.append(w.lower())
+        return (spacy_word_tokens, no_punct_word_tokens)
     def get_polysyllables(self, some_list):
         polysyllables = []
         for w in some_list: 
