@@ -30,23 +30,23 @@ class NLP():
         readability_scores['forcast'] = self.doc._.forcast
         return readability_scores
     def tokenize_words(self, document):
-        self.spacy_word_tokens = [t.text for t in document]
-        self.no_punct_word_tokens = []
-        for w in self.spacy_word_tokens:
+        spacy_word_tokens = [t.text for t in document]
+        no_punct_word_tokens = []
+        for w in spacy_word_tokens:
             for p in punctuation:
                 w = w.replace(p, "").replace("\n", "")
-            self.no_punct_word_tokens.append(w.lower())
-        return (self.spacy_word_tokens, self.no_punct_word_tokens)
+            no_punct_word_tokens.append(w.lower())
+        return (spacy_word_tokens, no_punct_word_tokens)
     def get_polysyllables(self, some_list):
-        self.polysyllables = []
+        polysyllables = []
         for w in some_list: 
             if syllables.estimate(w) > 3: 
-                self.polysyllables.append(w)
+                polysyllables.append(w)
 
                     
                 
 
-        return self.polysyllables
+        return polysyllables
 
 
 
