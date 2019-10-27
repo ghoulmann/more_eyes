@@ -3,7 +3,7 @@ from spacy_readability import Readability
 from spacy.matcher import Matcher
 from string import punctuation
 import syllables
-
+from textblob import TextBlob
 #from big_phoney import BigPhoney
 
 class NLP():
@@ -12,8 +12,9 @@ class NLP():
     matcher = Matcher(nlp.vocab)
     def __init__(self, text):
         
-        #self.nlp.add_pipe(Readability(), last=True)
+        
         self.doc = self.nlp(text)
+        self.blob = TextBlob(self.doc.text)
         self.readability = self.readability_indexes()
         self.word_tokens = self.tokenize_words(self.doc)
         
