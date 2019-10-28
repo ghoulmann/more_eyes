@@ -3,6 +3,7 @@ from spacy_readability import Readability
 from spacy.matcher import Matcher
 from string import punctuation
 import syllables
+from collections import Counter
 from textblob import TextBlob
 #from big_phoney import BigPhoney
 
@@ -29,7 +30,9 @@ class NLP():
         self.sentence_count = len(self.sents)
         self.statistics()
         self.word_count = len(self.word_tokens[1])
+        self.get_freq_dist()
         #self.lexicon_count = len(self.lexicon)
+        self.get_intities()
     def readability_indexes(self):
         readability_scores = {}
         readability_scores['ari'] = self.doc._.automated_readability_index
@@ -165,4 +168,20 @@ class NLP():
         self.statistics['percent of sentences'].update({'passives':self.statistics['per sentence']['passive rate'] * 100})
         self.statistics['ratios'] = {}
         self.statistics['ratios'].update({'adverbs to adjectives':len(self.pos['adverbs'])/len(self.pos['adjectives'])})
+    
+    def get_freq_dist(self):
+        words = [token.text for token in self.doc if token.is_stop != True and token.is_punct != True and token.text.isalpha() == True]
+        nouns = [token.text for token in self.doc if token.is_stop != True and token.is_punct != True and token.pos_ == "NOUN" and token.text.isalpha() == True]     
+        verbs = [token.text for token in self.doc if token.is_stop != True and token.is_punct != True and token.pos_ == "VERB" and token.text.isalpha() == True]
+        
+        word_freq = Counter(words)
+        noun_freq = Counter(nouns)
+        verb_freq = Counter(verbs)
+        self.common_words = word_freq.most_common(10)
+        self.common_nouns = noun_freq.most_common(10)
+        self.common_verbs = verb_freq.most_common(10)
+    def get_intities(self):
+        self.entities = {}
+        for ent in self.doc.ents:
+            self.entities[ent.text] = ent.label_
         
